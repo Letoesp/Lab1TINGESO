@@ -1,2 +1,2 @@
 # Lab1TINGESO
-Repositorio de desarrollo de una aplicación web en la asignatura Técnicas de ingeniería de Software.
+Repositorio que contiene el desarrollo de una app web monolítica que consiste en un gestor de pagos de un Preuniversitario TopEducation
