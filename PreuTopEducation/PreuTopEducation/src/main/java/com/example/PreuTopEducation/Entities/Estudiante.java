@@ -1,5 +1,6 @@
 package com.example.PreuTopEducation.Entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Estudiante {
     @Id
+    @Column(unique = true)
     private Long rut;
     private String nombres;
     private String apellidos;
