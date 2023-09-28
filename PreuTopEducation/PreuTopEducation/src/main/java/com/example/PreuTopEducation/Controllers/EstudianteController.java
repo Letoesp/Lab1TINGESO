@@ -19,11 +19,11 @@ public class EstudianteController {
         this.estudianteService = estudianteService;
     }
 
-    @GetMapping("/registro-estudiantes")
+    @GetMapping("/estudiantes")
     public String getEstudiantes(Model model) {
         List<Estudiante> estudiantes = estudianteService.getEstudiantes();
         model.addAttribute("estudiantes", estudiantes);
-        return "registro-estudiantes";
+        return "estudiantes";
     }
 
 

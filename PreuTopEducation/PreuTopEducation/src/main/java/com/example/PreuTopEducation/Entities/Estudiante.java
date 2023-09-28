@@ -1,9 +1,6 @@
 package com.example.PreuTopEducation.Entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +14,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Estudiante {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
-    private Long rut;
+    private Long id;
+    private String rut;
     private String nombres;
     private String apellidos;
     private LocalDate fecha_nacimiento;
@@ -31,7 +30,7 @@ public class Estudiante {
     private int promedio_examen;
 
 
-    public Estudiante(Long rut, String nombres, String apellidos, LocalDate fecha_nacimiento, String tipo_colegio_proc, String nombre_colegio, int año_egreso) {
+    public Estudiante(String rut, String nombres, String apellidos, LocalDate fecha_nacimiento, String tipo_colegio_proc, String nombre_colegio, int año_egreso) {
         this.rut = rut;
         this.nombres = nombres;
         this.apellidos = apellidos;
