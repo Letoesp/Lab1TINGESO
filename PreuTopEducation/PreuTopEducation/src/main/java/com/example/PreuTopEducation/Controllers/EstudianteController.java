@@ -24,11 +24,13 @@ public class EstudianteController {
         model.addAttribute("estudiantes",estudianteService.getEstudiantes());
         return "estudiantes";//retorno a html estudiantes
     }
-    //contenido del codigo del video
-    //modelo.addAttribute("estudiantes",estudianteService.getEstudiantes();
 
-    //List<Estudiante> estudiantes = estudianteService.getEstudiantes();
-    //model.addAttribute("estudiantes", estudiantes);
+    @GetMapping("/ingreso_estudiante")
+    public String ingresoEstudiante(Model model){
+        Estudiante estudiante = new Estudiante();
+        model.addAttribute("estudiante");
+        return "ingreso_estudiante";
+    }
 
 
 }
