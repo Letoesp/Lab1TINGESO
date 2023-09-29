@@ -21,12 +21,14 @@ public class EstudianteController {
 
     @GetMapping("/estudiantes")
     public String getEstudiantes(Model model) {
-        List<Estudiante> estudiantes = estudianteService.getEstudiantes();
-        model.addAttribute("estudiantes", estudiantes);
-        return "estudiantes";
+        model.addAttribute("estudiantes",estudianteService.getEstudiantes());
+        return "estudiantes";//retorno a html estudiantes
     }
+    //contenido del codigo del video
+    //modelo.addAttribute("estudiantes",estudianteService.getEstudiantes();
 
-
+    //List<Estudiante> estudiantes = estudianteService.getEstudiantes();
+    //model.addAttribute("estudiantes", estudiantes);
 
 
 }
