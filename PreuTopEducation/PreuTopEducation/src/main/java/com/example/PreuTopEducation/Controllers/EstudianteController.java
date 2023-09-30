@@ -26,11 +26,12 @@ public class EstudianteController {
     }
 
     @GetMapping("/ingreso_estudiante")
-    public String ingresoEstudiante(Model model){
+    public String ingresoEstudiante(Model model) {
         Estudiante estudiante = new Estudiante();
-        model.addAttribute("estudiante");
+        model.addAttribute("estudiante", estudiante); // Agrega el objeto estudiante al modelo con el nombre "estudiante"
         return "ingreso_estudiante";
     }
+
 
 
 }
