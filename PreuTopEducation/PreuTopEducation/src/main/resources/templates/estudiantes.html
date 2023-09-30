@@ -29,6 +29,7 @@
                 <!-- th es para celdas de encabezado -->
                 <th>Nombres</th>
                 <th>Apellidos</th>
+                <th>Rut</th>
                 <th>Fecha de nacimiento</th>
                 <th>Tipo colegio procedencia</th>
                 <th>Nombre colegio</th>
@@ -40,11 +41,12 @@
             <tr th:each="estudiante : ${estudiantes}">
                 <!-- Las expresiones Thymeleaf deben usar el objeto estudiante para acceder a las propiedades -->
                 <td th:text="${estudiante.nombres}">Nombres</td>
+                <td th:text="${estudiante.rut}">Rut</td>
                 <td th:text="${estudiante.apellidos}">Apellidos</td>
                 <td th:text="${estudiante.fecha_nacimiento}">Fecha de nacimiento</td>
                 <td th:text="${estudiante.tipo_colegio_proc}">Tipo colegio procedencia</td>
                 <td th:text="${estudiante.nombre_colegio}">Nombre colegio</td>
-                <td th:text="${estudiante.año_egreso}">Año egreso del colegio</td>
+                <td th:text="${estudiante.egreso}">Año egreso del colegio</td>
             </tr>
             </tbody>
         </table>

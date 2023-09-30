@@ -23,10 +23,47 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center">Ingreso Estudiantes</h1>
             <div class="card-body">
-                <form th:action="@{/estudiantes}" th:object="${estudiante}" method="POST">
+                <form th:action="@{/ingreso_estudiante}" th:object="${estudiante}" method="POST">
                     <div class="form-group">
                         <label>Nombres :</label>
-                        <input type="text" name="nombres" th:field="*{nombres}" class="form-control" placeholder="Digite nombres">
+                        <input type="text" name="nombres" th:field="*{nombres}" class="form-control" placeholder="Escriba nombres del estudiante" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>Apellidos :</label>
+                        <input type="text" name="apellidos" th:field="*{apellidos}" class="form-control" placeholder="Escriba apellidos del estudiante" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>Rut :</label>
+                        <input type="text" name="rut" th:field="*{rut}" class="form-control" placeholder="Escriba el rut del estudiante" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>Fecha de nacimiento :</label>
+                        <input type="date" name="fecha_nacimiento" th:field="*{fecha_nacimiento}" class="form-control" placeholder="Ingrese la fecha de nacimiento" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>Tipo Colegio Procedencia :</label>
+                        <input type="text" name="tipo_colegio_proc" th:field="*{tipo_colegio_proc}" class="form-control" placeholder="Escriba colegio procedencia del estudiante" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>Nombre Colegio :</label>
+                        <input type="text" name="nombre_colegio" th:field="*{nombre_colegio}" class="form-control" placeholder="Escriba el nombre del colegio de procedencia" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>Año egreso :</label>
+                        <input type="number" name="año_egreso" th:field="${estudiante.egreso}" class="form-control" placeholder="Escriba el año de egreso" required>
+                    </div>
+
+
+
+                    <br>
+                    <div class="box-footer">
+                        <button class="btn btn-success">Ingresar estudiante</button>
                     </div>
                 </form>
 
