@@ -42,12 +42,18 @@ public class CuotaService {
             arancelBase = 0;
         }
 
+        // Obtener la cantidad de cuotas desde el estudiante
+        int cantidadCuotas = estudiante.getCantidad_cuotas();
+
+        // Calcular el monto de cada cuota
+        double montoCuota = arancelBase / cantidadCuotas;
+
         // Generar cuotas
         List<Cuota> cuotas = new ArrayList<>();
-        for (int i = 0; i < estudiante.getCantidad_cuotas(); i++) {
+        for (int i = 0; i < cantidadCuotas; i++) {
             Cuota cuota = new Cuota();
             cuota.setEstudiante(estudiante);
-            cuota.setMonto((int) arancelBase);
+            cuota.setMonto((int) montoCuota);
             // Ajusta otros atributos de la cuota si es necesario
             // ...
             cuotas.add(cuota);
@@ -58,6 +64,8 @@ public class CuotaService {
     }
 
 
-    }
+
+
+}
 
 

@@ -42,7 +42,15 @@
             <td th:text="${estudiante.tipo_colegio_proc}">Tipo colegio procedencia</td>
             <td th:text="${estudiante.egreso}">Año egreso del colegio</td>
             <td>
-                <input type="number" th:id="'cantidadCuotas_' + ${estudiante.id}" class="form-control" placeholder="Ingrese cuotas">
+                <div class="input-group">
+                    <input type="number" th:id="'cantidadCuotas_' + ${estudiante.id}" class="form-control"
+                           placeholder="Ingrese cuotas" th:value="1"
+                           th:min="1"
+                           th:max="${estudiante.tipo_colegio_proc == 'Municipal' ? 10 : (estudiante.tipo_colegio_proc == 'Subvencionado' ? 7 : 4)}">
+                </div>
+
+
+
             </td>
             <td>
                 <a th:href="@{'/cuotas/' + ${estudiante.id}}" class="btn btn-info">Generar cuotas</a>
@@ -50,6 +58,7 @@
         </tr>
         </tbody>
     </table>
+
 
 </div>
 </body>
