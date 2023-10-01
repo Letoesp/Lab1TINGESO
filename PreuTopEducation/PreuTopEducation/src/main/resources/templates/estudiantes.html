@@ -34,6 +34,7 @@
                 <th>Tipo colegio procedencia</th>
                 <th>Nombre colegio</th>
                 <th>Año egreso del colegio</th>
+                <th>Acción</th>
             </tr>
             </thead>
             <tbody>
@@ -47,6 +48,10 @@
                 <td th:text="${estudiante.tipo_colegio_proc}">Tipo colegio procedencia</td>
                 <td th:text="${estudiante.nombre_colegio}">Nombre colegio</td>
                 <td th:text="${estudiante.egreso}">Año egreso del colegio</td>
+                <td>
+                    <a th:href="@{/editar_estudiante/{id}(id=${estudiante.id})}" class="btn btn-info">Editar</a>
+                    <a th:href="@{/estudiantes/{id}(id=${estudiante.id})}" class="btn btn-danger">Eliminar</a>
+                </td>
             </tr>
             </tbody>
         </table>

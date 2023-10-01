@@ -25,5 +25,19 @@ public class EstudianteService {
         return estudianteRepository.save(estudiante);
     }
 
+    public Estudiante actualizarEstudiante(Estudiante estudiante){
+        return estudianteRepository.save(estudiante);
+
+    }
+    public Estudiante obtenerEstudianteporId(Long id){
+        return estudianteRepository.findById(id).get();
+
+    }
+
+    public void eliminarEstudiante(Long id){
+        estudianteRepository.deleteById(id);
+
+    }
+
 
 }

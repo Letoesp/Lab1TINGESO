@@ -5,10 +5,7 @@ import com.example.PreuTopEducation.Entities.Estudiante;
 import com.example.PreuTopEducation.Services.EstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,7 +36,37 @@ public class EstudianteController {
         return "redirect:/estudiantes";
     }
 
+    @GetMapping("/editar_estudiante/{id}")//get para recibir el objeto estudiante a editar para editarlo
+    public String editarEstudiante(@PathVariable Long id, Model model){
+        model.addAttribute("estudiante",estudianteService.obtenerEstudianteporId(id));
+        return "editar_estudiante";
+    }
 
+    @PostMapping("editar_estudiante/{id}")
+    public String editarEstudiante(@PathVariable Long id,@ModelAttribute("estudiante") Estudiante estudiante,Model modelo) {
+        Estudiante estudianteIngresado = estudianteService.obtenerEstudianteporId(id);
+        estudianteIngresado.setId(id);
+        estudianteIngresado.setNombres(estudiante.getNombres());
+        estudianteIngresado.setRut(estudiante.getRut());
+        estudianteIngresado.setApellidos(estudiante.getApellidos());
+        estudianteIngresado.setFecha_nacimiento(estudiante.getFecha_nacimiento());
+        estudianteIngresado.setTipo_colegio_proc(estudiante.getTipo_colegio_proc());
+        estudianteIngresado.setNombre_colegio(estudiante.getNombre_colegio());
+        estudianteIngresado.setEgreso(estudiante.getEgreso());
+        estudianteService.actualizarEstudiante(estudianteIngresado);
+        return "redirect:/estudiantes";
+    }
+    @GetMapping("/estudiantes/{id}")
+    public String eliminarEstudiante(@PathVariable Long id){
+        estudianteService.eliminarEstudiante(id);
+        return "redirect:/estudiantes";
 
+    }
 
 }
+
+
+
+
+
+
