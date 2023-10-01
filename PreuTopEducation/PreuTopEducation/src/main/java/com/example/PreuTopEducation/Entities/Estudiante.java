@@ -24,7 +24,7 @@ public class Estudiante {
     private String tipo_colegio_proc;
     private String nombre_colegio;
     private int egreso;
-    private String tipo_pago;
+    private String tipopago;
     private int arancel_estudiante;
     private int cantidad_cuotas;
     private int promedio_examen;

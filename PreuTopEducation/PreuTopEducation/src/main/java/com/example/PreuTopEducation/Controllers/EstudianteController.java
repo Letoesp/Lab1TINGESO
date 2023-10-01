@@ -1,5 +1,6 @@
 package com.example.PreuTopEducation.Controllers;
 
+import com.example.PreuTopEducation.Repositories.EstudianteRepository;
 import org.springframework.ui.Model;
 import com.example.PreuTopEducation.Entities.Estudiante;
 import com.example.PreuTopEducation.Services.EstudianteService;
@@ -42,7 +43,7 @@ public class EstudianteController {
         return "editar_estudiante";
     }
 
-    @PostMapping("editar_estudiante/{id}")
+    @PostMapping("editar_estudiante/{id}")//post para realizar los cambios y actualizar el estudiante
     public String editarEstudiante(@PathVariable Long id,@ModelAttribute("estudiante") Estudiante estudiante,Model modelo) {
         Estudiante estudianteIngresado = estudianteService.obtenerEstudianteporId(id);
         estudianteIngresado.setId(id);
@@ -54,14 +55,24 @@ public class EstudianteController {
         estudianteIngresado.setNombre_colegio(estudiante.getNombre_colegio());
         estudianteIngresado.setEgreso(estudiante.getEgreso());
         estudianteService.actualizarEstudiante(estudianteIngresado);
-        return "redirect:/estudiantes";
+        return "redirect:/estudiantes";//una vez hecho el cambio, vuelve a la pagina de estudiantes
     }
-    @GetMapping("/estudiantes/{id}")
+    @GetMapping("/estudiantes/{id}")//Borrar estudiante
     public String eliminarEstudiante(@PathVariable Long id){
         estudianteService.eliminarEstudiante(id);
         return "redirect:/estudiantes";
 
     }
+
+    @GetMapping("/generar_cuota") // Leer estudiantes con tipoPago igual a "Cuota"
+    public String getEstudiantesCuota(Model model) {
+        List<Estudiante> estudiantes = estudianteService.getEstudianteporTipopago("Cuotas");
+        System.out.println("Número de estudiantes con tipo de pago Cuota: " + estudiantes.size());
+        model.addAttribute("estudiantes", estudiantes);
+        return "generar_cuota"; // Retorna a la vista HTML estudiantes
+    }
+
+
 
 }
 
