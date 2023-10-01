@@ -84,6 +84,8 @@ public class EstudianteController {
         estudianteService.actualizarEstudiante(estudianteIngresado);
         return "redirect:/generar_cuota";
     }
+    
+
 
 
 

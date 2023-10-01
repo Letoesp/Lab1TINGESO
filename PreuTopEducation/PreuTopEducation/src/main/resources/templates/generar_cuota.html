@@ -45,7 +45,8 @@
 
             <td>
                 <a th:href="@{/actualizar_cuota/{id}(id=${estudiante.id})}" class="btn btn-info">Decidir cuotas</a>
-                <a th:href="@{'/cuotas/' + ${estudiante.id}}" class="btn btn-info">Generar cuotas</a>
+                <a th:href="@{'/generar_cuota?estudianteId=' + ${estudiante.id}}" class="btn btn-info">Generar Cuotas</a>
+
             </td>
         </tr>
         </tbody>

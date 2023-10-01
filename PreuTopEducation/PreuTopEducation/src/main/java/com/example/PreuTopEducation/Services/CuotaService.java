@@ -3,69 +3,88 @@ package com.example.PreuTopEducation.Services;
 import com.example.PreuTopEducation.Entities.Cuota;
 import com.example.PreuTopEducation.Entities.Estudiante;
 import com.example.PreuTopEducation.Repositories.CuotaRepository;
+import com.example.PreuTopEducation.Repositories.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.Year;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CuotaService {
     private final CuotaRepository cuotaRepository;
+
     @Autowired
     public CuotaService(CuotaRepository cuotaRepository){
         this.cuotaRepository= cuotaRepository;
     }
-    public List<Cuota> generarCuotas(Estudiante estudiante) {
-        double arancelBase = 1500000.0; // 1.500.000
-        int anioActual = Year.now().getValue();
-        int aniosEgreso = anioActual - estudiante.getEgreso();
 
-        // Calcular descuentos
+    public void generarCuotas(Estudiante estudiante) {
+        double arancelTotal = estudiante.getArancel_estudiante();
+
+        // Aplicar descuento según tipo de colegio de procedencia
         if ("Municipal".equals(estudiante.getTipo_colegio_proc())) {
-            arancelBase = arancelBase - (arancelBase * 0.2); // 20% de descuento para colegios municipales
+            arancelTotal *= 0.8; // 20% de descuento
         } else if ("Subvencionado".equals(estudiante.getTipo_colegio_proc())) {
-            arancelBase = arancelBase - (arancelBase * 0.1); // 10% de descuento para colegios subvencionados
+            arancelTotal *= 0.9; // 10% de descuento
         }
 
-        if (aniosEgreso < 1) {
-            arancelBase = arancelBase - (arancelBase * 0.15); // 15% de descuento si es menos de un año
-        } else if (aniosEgreso >= 1 && aniosEgreso <= 2) {
-            arancelBase = arancelBase - (arancelBase * 0.08); // 8% de descuento si es 1-2 años
-        } else if (aniosEgreso >= 3 && aniosEgreso <= 4) {
-            arancelBase = arancelBase - (arancelBase * 0.04); // 4% de descuento si es 3-4 años
+        // Calcular descuento según años desde que egresó del colegio
+        int añosDesdeEgreso = Year.now().getValue() - estudiante.getEgreso();
+        if (añosDesdeEgreso < 1) {
+            arancelTotal *= 0.85; // 15% de descuento
+        } else if (añosDesdeEgreso >= 1 && añosDesdeEgreso <= 2) {
+            arancelTotal *= 0.92; // 8% de descuento
+        } else if (añosDesdeEgreso >= 3 && añosDesdeEgreso <= 4) {
+            arancelTotal *= 0.96; // 4% de descuento
         }
 
-        // La cuota nunca será negativa, asegúrate de que sea al menos 0
-        if (arancelBase < 0) {
-            arancelBase = 0;
-        }
-
-        // Obtener la cantidad de cuotas desde el estudiante
+        // Calcular el número de cuotas que debe pagar el estudiante
         int cantidadCuotas = estudiante.getCantidad_cuotas();
+        int montoCuota = (int) Math.ceil(arancelTotal / cantidadCuotas); // Redondear hacia arriba
 
-        // Calcular el monto de cada cuota
-        double montoCuota = arancelBase / cantidadCuotas;
+        // Obtener el mes y año actual
+        YearMonth yearMonth = YearMonth.now();
 
-        // Generar cuotas
-        List<Cuota> cuotas = new ArrayList<>();
+        // Generar cuotas y guardar en la base de datos
         for (int i = 0; i < cantidadCuotas; i++) {
+            LocalDate plazoInicio = yearMonth.atDay(5);
+            LocalDate plazoFinal = yearMonth.atDay(10);
+
+            // Si el plazo final es mayor que el último día del mes, ajustarlo
+            if (plazoFinal.isAfter(yearMonth.atEndOfMonth())) {
+                plazoFinal = yearMonth.atEndOfMonth();
+            }
+
             Cuota cuota = new Cuota();
             cuota.setEstudiante(estudiante);
-            cuota.setMonto((int) montoCuota);
-            // Ajusta otros atributos de la cuota si es necesario
-            // ...
-            cuotas.add(cuota);
-        }
+            cuota.setFecha_pago(plazoInicio); // La fecha de pago es el mismo que el plazo de inicio
+            cuota.setMonto(montoCuota);
+            cuota.setEstado("Pendiente");
+            cuota.setPlazo_inicio(plazoInicio);
+            cuota.setPlazo_final(plazoFinal);
+            cuota.setInteres(0); // No hay intereses en este ejemplo
+            cuota.setDescuento(0); // No se aplica descuento directamente a las cuotas
+            cuotaRepository.save(cuota);
 
-        // Guardar cuotas en la base de datos
-        return cuotaRepository.saveAll(cuotas);
+            // Avanzar al siguiente mes para las siguientes cuotas
+            yearMonth = yearMonth.plusMonths(1);
+        }
     }
 
 
 
 
-}
+
+    }
+
+
+
+
+
 
 
