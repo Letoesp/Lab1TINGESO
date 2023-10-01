@@ -17,7 +17,21 @@
     </ul>
   </div>
 </nav>
-</nav>
 <!-- Contenido de la página -->
+<form th:action="@{/actualizar_cuota/{id}(id=${estudiante.id})}" th:object="${estudiante}" method="POST">
+  <div class="form-group">
+    <h1 class="text-center">Insertar cuotas</h1>
+    <label>Inserte cantidad de cuotas deseada :</label>
+    <input type="number" name="cantidad_cuotas" th:field="${estudiante.cantidad_cuotas}" class="form-control" placeholder="Escriba la cantidad de cuotas deseada" required
+           th:max="${estudiante.tipo_colegio_proc == 'Municipal' ? 10 : (estudiante.tipo_colegio_proc == 'Subvencionado' ? 7 : 4)}">
+  </div>
+  <br>
+  <br>
+  <div class="box-footer">
+    <button class="btn btn-success">Actualizar estudiante</button>
+  </div>
+</form>
+
+
 </body>
 </html>

@@ -41,18 +41,10 @@
             <td th:text="${estudiante.rut}">Rut</td>
             <td th:text="${estudiante.tipo_colegio_proc}">Tipo colegio procedencia</td>
             <td th:text="${estudiante.egreso}">Año egreso del colegio</td>
+            <td th:text="${estudiante.cantidad_cuotas}">Cantidad cuotas</td>
+
             <td>
-                <div class="input-group">
-                    <input type="number" th:id="'cantidadCuotas_' + ${estudiante.id}" class="form-control"
-                           placeholder="Ingrese cuotas" th:value="1"
-                           th:min="1"
-                           th:max="${estudiante.tipo_colegio_proc == 'Municipal' ? 10 : (estudiante.tipo_colegio_proc == 'Subvencionado' ? 7 : 4)}">
-                </div>
-
-
-
-            </td>
-            <td>
+                <a th:href="@{/actualizar_cuota/{id}(id=${estudiante.id})}" class="btn btn-info">Decidir cuotas</a>
                 <a th:href="@{'/cuotas/' + ${estudiante.id}}" class="btn btn-info">Generar cuotas</a>
             </td>
         </tr>

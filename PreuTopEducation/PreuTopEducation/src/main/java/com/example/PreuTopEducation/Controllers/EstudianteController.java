@@ -71,12 +71,18 @@ public class EstudianteController {
         model.addAttribute("estudiantes", estudiantes);
         return "generar_cuota"; // Retorna a la vista HTML estudiantes
     }
-    @PostMapping("generar_cuota/{id}")//post para realizar los cambios y actualizar las cuotas
+
+    @GetMapping("/actualizar_cuota/{id}")//get para recibir el objeto estudiante a editar para editarlo
+    public String cantidadcuotasdeEstudiante(@PathVariable Long id, Model model){
+        model.addAttribute("estudiante",estudianteService.obtenerEstudianteporId(id));
+        return "actualizar_cuota";
+    }
+    @PostMapping("actualizar_cuota/{id}")//post para realizar los cambios y actualizar las cuotas
     public String ingresarcuotaEstudiante(@PathVariable Long id,@ModelAttribute("estudiante") Estudiante estudiante,Model modelo) {
         Estudiante estudianteIngresado = estudianteService.obtenerEstudianteporId(id);
         estudianteIngresado.setCantidad_cuotas(estudiante.getCantidad_cuotas());
         estudianteService.actualizarEstudiante(estudianteIngresado);
-        return "generar_cuota";
+        return "redirect:/generar_cuota";
     }
 
 
