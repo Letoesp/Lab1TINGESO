@@ -1,5 +1,6 @@
 package com.example.PreuTopEducation.Controllers;
 
+import com.example.PreuTopEducation.Entities.Cuota;
 import com.example.PreuTopEducation.Entities.Estudiante;
 import org.springframework.ui.Model;
 import com.example.PreuTopEducation.Services.CuotaService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -28,7 +30,12 @@ public class CuotaController {
         return "redirect:/cuotas";  // Redirige a la página de cuotas después de generarlas
     }
 
-
+    @GetMapping("/ver_cuotas/{id}")
+    public String cuotasEstudiante(@PathVariable Long id, Model model) {
+        List<Cuota> cuotas = cuotaService.obtenerCuotasPorEstudianteId(id);
+        model.addAttribute("cuotas", cuotas);
+        return "ver_cuotas"; // El nombre del archivo HTML de la vista sin la barra inicial
+    }
 
 
 

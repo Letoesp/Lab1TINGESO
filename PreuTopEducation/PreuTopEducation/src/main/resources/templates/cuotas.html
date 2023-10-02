@@ -17,7 +17,36 @@
         </ul>
     </div>
 </nav>
+<div class="container">
+    <div class="row">
+        <h1>Cuotas Estudiantes</h1>
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead class="table-light">
+        <tr>
+            <!-- th es para celdas de encabezado -->
+            <th>Nombres</th>
+            <th>Rut</th>
+            <th>Apellidos</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- th:each debe abarcar toda la fila y las celdas -->
+        <tr th:each="estudiante : ${estudiantes}">
+            <!-- Las expresiones Thymeleaf deben usar el objeto estudiante para acceder a las propiedades -->
+            <td th:text="${estudiante.nombres}">Nombres</td>
+            <td th:text="${estudiante.rut}">Rut</td>
+            <td th:text="${estudiante.apellidos}">Apellidos</td>
+            <td>
+                <a th:href="@{/ver_cuotas/{id}(id=${estudiante.id})}" class="btn btn-info">Ver Cuotas</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-<!-- Contenido de la página -->
+
+</div>
+
 </body>
 </html>

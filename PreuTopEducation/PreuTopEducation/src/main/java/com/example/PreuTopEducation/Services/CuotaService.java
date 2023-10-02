@@ -84,6 +84,16 @@ public class CuotaService {
         }
     }
 
+
+
+    public Optional<Cuota> obtenerCuotaPorId(Long cuotaId) {
+        return cuotaRepository.findCuotaByIdcuota(cuotaId);
+    }
+
+    public List<Cuota> obtenerCuotasPorEstudianteId(Long estudianteId) {
+        return cuotaRepository.findByEstudiante_Id(estudianteId);
+    }
+
 }
 
 

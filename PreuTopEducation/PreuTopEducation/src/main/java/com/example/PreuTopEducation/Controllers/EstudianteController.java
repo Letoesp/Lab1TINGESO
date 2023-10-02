@@ -85,7 +85,13 @@ public class EstudianteController {
         return "redirect:/generar_cuota";
     }
 
-
+    @GetMapping("/cuotas") // Leer estudiantes con tipoPago igual a "Cuota pero en la vista /cuotas"
+    public String getEstudiantesconCuota(Model model) {
+        List<Estudiante> estudiantes = estudianteService.getEstudianteporTipopago("Cuotas");
+        System.out.println("Número de estudiantes con tipo de pago Cuota: " + estudiantes.size());
+        model.addAttribute("estudiantes", estudiantes);
+        return "/cuotas"; // Retorna a la vista HTML estudiantes
+    }
 
 
 
