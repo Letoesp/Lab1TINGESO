@@ -31,11 +31,26 @@ public class CuotaController {
     }
 
     @GetMapping("/ver_cuotas/{id}")
-    public String cuotasEstudiante(@PathVariable Long id, Model model) {
+    public String cuotasEstudiante(@PathVariable Long id, Model model) {//obtener cuotas de un estudiante
         List<Cuota> cuotas = cuotaService.obtenerCuotasPorEstudianteId(id);
         model.addAttribute("cuotas", cuotas);
         return "ver_cuotas"; // El nombre del archivo HTML de la vista sin la barra inicial
     }
+
+    @PostMapping("/ver_cuotas/{id}")
+    public String registrarCuota(@PathVariable Long id, @RequestParam("estado") String estado) {
+        Cuota cuota = cuotaService.obtenerCuotaPorId(id);
+        cuota.setEstado(estado);
+        cuotaService.actualizarCuota(cuota);
+
+        // Obtén el ID del estudiante desde la cuota
+        Long estudianteId = cuota.getEstudiante().getId();
+
+        // Redirige a la página de cuotas del estudiante específico
+        return "redirect:/ver_cuotas/" + estudianteId;
+    }
+
+
 
 
 

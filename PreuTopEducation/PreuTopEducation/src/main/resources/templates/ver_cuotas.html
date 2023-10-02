@@ -33,7 +33,6 @@
             <th>Interes</th>
             <th>Monto</th>
             <th>Estado</th>
-            <th>Acción</th>
         </tr>
         </thead>
         <tbody>
@@ -46,11 +45,21 @@
             <td th:text="${cuota.descuento}">Descuento</td>
             <td th:text="${cuota.interes}">Intereses</td>
             <td th:text="${cuota.monto}">Monto a pagar</td>
-            <td th:text="${cuota.estado}">Estado</td>
 
-            <td>
-
+            <td th:object="${cuota}">
+                <form th:action="@{/ver_cuotas/{id}(id=${cuota.idcuota})}" method="post" class="form-inline justify-content-end">
+                    <input type="hidden" th:name="idcuota" th:value="${cuota.idcuota}" /> <!-- Campo oculto para enviar el ID de la cuota -->
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="estado" class="sr-only">Tipo de pago:</label>
+                        <select name="estado" id="estado" class="form-control" required>
+                            <option value="Pendiente" th:selected="${cuota.estado == 'Pendiente'}">Pendiente</option>
+                            <option value="Pagado" th:selected="${cuota.estado == 'Pagado'}">Pagado</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success mb-2">Registrar pago</button>
+                </form>
             </td>
+
         </tr>
         </tbody>
     </table>
