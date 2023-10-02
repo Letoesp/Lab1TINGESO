@@ -45,7 +45,11 @@
 
             <td>
                 <a th:href="@{/actualizar_cuota/{id}(id=${estudiante.id})}" class="btn btn-info">Decidir cuotas</a>
-                <a th:href="@{'/generar_cuota?estudianteId=' + ${estudiante.id}}" class="btn btn-info">Generar Cuotas</a>
+
+                <form action="/generar_cuota" method="post">
+                    <input type="hidden" name="id" th:value="${estudiante.id}">
+                    <button type="submit">Generar Cuotas</button>
+                </form>
 
             </td>
         </tr>

@@ -17,14 +17,23 @@ import java.util.Optional;
 @Service
 public class CuotaService {
     private final CuotaRepository cuotaRepository;
+    private final EstudianteService estudianteService;
 
     @Autowired
-    public CuotaService(CuotaRepository cuotaRepository){
-        this.cuotaRepository= cuotaRepository;
+    public CuotaService(CuotaRepository cuotaRepository,EstudianteService estudianteService) {
+        this.cuotaRepository = cuotaRepository;
+        this.estudianteService = estudianteService;
     }
 
-    public void generarCuotas(Estudiante estudiante) {
-        double arancelTotal = estudiante.getArancel_estudiante();
+    public Estudiante obtenerEstudiantePorId(Long estudianteId) {
+        return estudianteService.obtenerEstudianteporId(estudianteId);
+    }
+
+    public void generarCuotasporId(Long id) {
+        // Obtener el estudiante por su ID utilizando el servicio de Estudiante
+        Estudiante estudiante = obtenerEstudiantePorId(id);
+
+        double arancelTotal = 1500000.0; // Utilizar arancel fijo de 1.500.000
 
         // Aplicar descuento según tipo de colegio de procedencia
         if ("Municipal".equals(estudiante.getTipo_colegio_proc())) {
@@ -62,7 +71,6 @@ public class CuotaService {
 
             Cuota cuota = new Cuota();
             cuota.setEstudiante(estudiante);
-            cuota.setFecha_pago(plazoInicio); // La fecha de pago es el mismo que el plazo de inicio
             cuota.setMonto(montoCuota);
             cuota.setEstado("Pendiente");
             cuota.setPlazo_inicio(plazoInicio);
@@ -76,11 +84,14 @@ public class CuotaService {
         }
     }
 
+}
 
 
 
 
-    }
+
+
+
 
 
 

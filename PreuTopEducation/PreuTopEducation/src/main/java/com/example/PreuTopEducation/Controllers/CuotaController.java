@@ -5,10 +5,7 @@ import org.springframework.ui.Model;
 import com.example.PreuTopEducation.Services.CuotaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -19,14 +16,21 @@ public class CuotaController {
     @Autowired
     public CuotaController(CuotaService cuotaService){
         this.cuotaService = cuotaService;
+
     }
 
-    @GetMapping("/generar_cuota")
-    public String generarCuotaForm(@RequestParam("estudianteId") Long estudianteId, Model model) {
+    @PostMapping("/generar_cuota")
+    public String generarCuotasParaEstudiante(@RequestParam("id") Long estudianteId) {
+        // Llama al método del servicio para generar las cuotas para el estudiante con el ID proporcionado
+        cuotaService.generarCuotasporId(estudianteId);
 
-        // Redirigir a la página de cuotas
-        return "redirect:/cuotas";
+        // Redirige a alguna página de éxito o vuelve al formulario, según tus necesidades
+        return "redirect:/cuotas";  // Redirige a la página de cuotas después de generarlas
     }
+
+
+
+
 
 
 }
