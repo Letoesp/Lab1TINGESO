@@ -39,7 +39,7 @@
             <td th:text="${estudiante.rut}">Rut</td>
             <td th:text="${estudiante.apellidos}">Apellidos</td>
             <td>
-                <a th:href="@{/ver_cuotas/{id}(id=${estudiante.id})}" class="btn btn-info">Ver Cuotas</a>
+                <a th:href="@{/ver_cuotas/{id}(id=${estudiante.rut})}" class="btn btn-info">Ver Cuotas</a>
             </td>
         </tr>
         </tbody>

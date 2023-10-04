@@ -44,10 +44,10 @@
             <td th:text="${estudiante.cantidad_cuotas}">Cantidad cuotas</td>
 
             <td>
-                <a th:href="@{/actualizar_cuota/{id}(id=${estudiante.id})}" class="btn btn-info">Decidir cuotas</a>
+                <a th:href="@{/actualizar_cuota/{id}(id=${estudiante.rut})}" class="btn btn-info">Decidir cuotas</a>
 
                 <form action="/generar_cuota" method="post">
-                    <input type="hidden" name="id" th:value="${estudiante.id}">
+                    <input type="hidden" name="id" th:value="${estudiante.rut}">
                     <button type="submit">Generar Cuotas</button>
                 </form>
 

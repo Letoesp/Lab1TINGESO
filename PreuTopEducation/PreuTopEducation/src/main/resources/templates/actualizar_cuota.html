@@ -18,7 +18,7 @@
   </div>
 </nav>
 <!-- Contenido de la página -->
-<form th:action="@{/actualizar_cuota/{id}(id=${estudiante.id})}" th:object="${estudiante}" method="POST">
+<form th:action="@{/actualizar_cuota/{id}(id=${estudiante.rut})}" th:object="${estudiante}" method="POST">
   <div class="form-group">
     <h1 class="text-center">Insertar cuotas</h1>
     <label>Inserte cantidad de cuotas deseada :</label>

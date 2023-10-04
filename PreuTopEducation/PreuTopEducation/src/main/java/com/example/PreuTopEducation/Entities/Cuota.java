@@ -19,7 +19,7 @@ public class Cuota {
     @Column(unique = true)
     private Long idcuota;
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "rut")
     private Estudiante estudiante;//llave foranea
     private LocalDate fecha_pago;
     private int monto;

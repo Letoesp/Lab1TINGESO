@@ -35,8 +35,12 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <label>Rut :</label>
-                        <input type="text" name="rut" th:field="*{rut}" class="form-control" placeholder="Escriba el rut del estudiante" required>
+                        <label>RUT (Dígitos):</label>
+                        <input type="text" name="rutDigits" class="form-control" placeholder="Escriba los dígitos del RUT" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Dígito Verificador:</label>
+                        <input type="text" name="rutVerifier" class="form-control" placeholder="Escriba el dígito verificador" required>
                     </div>
                     <br>
                     <div class="form-group">

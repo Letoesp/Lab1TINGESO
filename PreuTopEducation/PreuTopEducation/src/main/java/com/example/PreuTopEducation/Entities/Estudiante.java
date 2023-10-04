@@ -14,10 +14,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Estudiante {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true)
-    private Long id;
-    private String rut;
+    @Column(name = "rut", nullable = false, unique = true)
+    private Long rut;
     private String nombres;
     private String apellidos;
     private LocalDate fecha_nacimiento;

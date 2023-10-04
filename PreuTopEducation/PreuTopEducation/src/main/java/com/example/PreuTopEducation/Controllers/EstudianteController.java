@@ -31,22 +31,38 @@ public class EstudianteController {
         model.addAttribute("estudiante", estudiante); // Agrega el objeto estudiante al modelo con el nombre "estudiante"
         return "ingreso_estudiante";
     }
-    @PostMapping("/ingreso_estudiante")//Post para ingresar datos del estudiante al sistema.
-    public String registrarEstudiante(@ModelAttribute("estudiante") Estudiante estudiante){
+
+    @PostMapping("/ingreso_estudiante")
+    public String registrarEstudiante(@RequestParam("rutDigits") String rutDigits,
+                                      @RequestParam("rutVerifier") String rutVerifier,
+                                      @ModelAttribute("estudiante") Estudiante estudiante, Model model) {
+        // Combina los dígitos y el dígito verificador en un solo RUT
+        String rutCombined = rutDigits + rutVerifier;
+
+        // Convierte el RUT combinado a long y asigna al objeto Estudiante
+        long rutLong = Long.parseLong(rutCombined);
+        estudiante.setRut(rutLong);
+
+        // Guarda el estudiante en la base de datos
         estudianteService.registrarEstudiante(estudiante);
+
+        // Redirige a la página de estudiantes
         return "redirect:/estudiantes";
     }
 
+
+
+
     @GetMapping("/editar_estudiante/{id}")//get para recibir el objeto estudiante a editar para editarlo
     public String editarEstudiante(@PathVariable Long id, Model model){
-        model.addAttribute("estudiante",estudianteService.obtenerEstudianteporId(id));
+        model.addAttribute("estudiante",estudianteService.obtenerEstudianteporRut(id));
         return "editar_estudiante";
     }
 
     @PostMapping("editar_estudiante/{id}")//post para realizar los cambios y actualizar el estudiante
     public String editarEstudiante(@PathVariable Long id,@ModelAttribute("estudiante") Estudiante estudiante,Model modelo) {
-        Estudiante estudianteIngresado = estudianteService.obtenerEstudianteporId(id);
-        estudianteIngresado.setId(id);
+        Estudiante estudianteIngresado = estudianteService.obtenerEstudianteporRut(id);
+        estudianteIngresado.setRut(id);
         estudianteIngresado.setNombres(estudiante.getNombres());
         estudianteIngresado.setRut(estudiante.getRut());
         estudianteIngresado.setApellidos(estudiante.getApellidos());
@@ -74,12 +90,12 @@ public class EstudianteController {
 
     @GetMapping("/actualizar_cuota/{id}")//get para recibir el objeto estudiante a editar para editarlo
     public String cantidadcuotasdeEstudiante(@PathVariable Long id, Model model){
-        model.addAttribute("estudiante",estudianteService.obtenerEstudianteporId(id));
+        model.addAttribute("estudiante",estudianteService.obtenerEstudianteporRut(id));
         return "actualizar_cuota";
     }
     @PostMapping("actualizar_cuota/{id}")//post para realizar los cambios y actualizar las cuotas
     public String ingresarcuotaEstudiante(@PathVariable Long id,@ModelAttribute("estudiante") Estudiante estudiante,Model modelo) {
-        Estudiante estudianteIngresado = estudianteService.obtenerEstudianteporId(id);
+        Estudiante estudianteIngresado = estudianteService.obtenerEstudianteporRut(id);
         estudianteIngresado.setCantidad_cuotas(estudiante.getCantidad_cuotas());
         estudianteService.actualizarEstudiante(estudianteIngresado);
         return "redirect:/generar_cuota";

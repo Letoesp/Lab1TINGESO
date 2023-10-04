@@ -9,7 +9,7 @@ import java.util.List;
 public interface CuotaRepository extends JpaRepository<Cuota,Long> {
     Cuota findCuotaByIdcuota(Long idcuota);
 
-    List<Cuota> findByEstudiante_Id(Long estudianteId);
+    List<Cuota> findByEstudiante_Rut(Long estudianteId);
 
 
 }

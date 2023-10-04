@@ -23,7 +23,7 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center">Editar Estudiante</h1>
             <div class="card-body">
-                <form th:action="@{/editar_estudiante/{id}(id=${estudiante.id})}" th:object="${estudiante}" method="POST">
+                <form th:action="@{/editar_estudiante/{id}(id=${estudiante.rut})}" th:object="${estudiante}" method="POST">
                     <div class="form-group">
                         <label>Nombres :</label>
                         <input type="text" name="nombres" th:field="*{nombres}" class="form-control" placeholder="Escriba nombres del estudiante" required>

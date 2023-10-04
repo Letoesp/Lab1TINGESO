@@ -26,7 +26,7 @@ public class CuotaService {
     }
 
     public Estudiante obtenerEstudiantePorId(Long estudianteId) {
-        return estudianteService.obtenerEstudianteporId(estudianteId);
+        return estudianteService.obtenerEstudianteporRut(estudianteId);
     }
 
     public void generarCuotasporId(Long id) {
@@ -91,7 +91,7 @@ public class CuotaService {
     }
 
     public List<Cuota> obtenerCuotasPorEstudianteId(Long estudianteId) {
-        return cuotaRepository.findByEstudiante_Id(estudianteId);
+        return cuotaRepository.findByEstudiante_Rut(estudianteId);
     }
 
     public Cuota actualizarCuota(Cuota cuota) {

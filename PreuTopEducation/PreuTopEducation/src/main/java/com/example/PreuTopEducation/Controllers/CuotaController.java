@@ -44,7 +44,7 @@ public class CuotaController {
         cuotaService.actualizarCuota(cuota);
 
         // Obtén el ID del estudiante desde la cuota
-        Long estudianteId = cuota.getEstudiante().getId();
+        Long estudianteId = cuota.getEstudiante().getRut();
 
         // Redirige a la página de cuotas del estudiante específico
         return "redirect:/ver_cuotas/" + estudianteId;

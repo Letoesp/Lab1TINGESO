@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface EstudianteRepository extends JpaRepository<Estudiante,Long> {
-    Optional<Estudiante> findEstudianteByRut(String rut);
+    Optional<Estudiante> findEstudianteByRut(Long rut);
 
 
     List<Estudiante> findEstudiantesByTipopago(String tipopago);

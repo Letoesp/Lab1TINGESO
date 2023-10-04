@@ -26,14 +26,13 @@ public class EstudianteService {
         return estudianteRepository.save(estudiante);
 
     }
-    public Estudiante obtenerEstudianteporId(Long id){
-        return estudianteRepository.findById(id).get();
+    public Estudiante obtenerEstudianteporRut(Long rut){
+        return estudianteRepository.findById(rut).get();
 
     }
 
-    public void eliminarEstudiante(Long id){
-        estudianteRepository.deleteById(id);
-
+    public void eliminarEstudiante(Long rut){
+        estudianteRepository.deleteById(rut);
     }
     public List<Estudiante> getEstudianteporTipopago(String tipopago) {
         return estudianteRepository.findEstudiantesByTipopago(tipopago);
