@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Subir Notas</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" th:href="@{/inicio}">Preuniversitario TopEducation</a>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" th:href="@{/estudiantes}">Registro Estudiantes</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/ingreso_estudiante}">Ingresar Estudiante</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/cuotas}">Cuotas</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/generar_cuota}">Generar Cuota</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/subir_notas}">Subir notas</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-5">
+    <form action="/subir_notas" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="archivo" class="form-label">Selecciona el archivo CSV:</label>
+            <input type="file" class="form-control" id="archivo" name="archivo" accept=".csv" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Subir Notas</button>
+    </form>
+    <div th:if="${mensaje}">
+        <p th:text="${mensaje}"></p>
+    </div>
+</div>
+</body>
+</html>
