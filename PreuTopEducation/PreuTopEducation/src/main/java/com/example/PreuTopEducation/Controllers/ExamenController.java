@@ -22,7 +22,8 @@ public class ExamenController {
     }
 
     @GetMapping("/subir_notas")
-    public String mostrarFormularioSubirNotas() {
+    public String mostrarFormularioSubirNotas()
+    {
         return "subir_notas";
     }
 
