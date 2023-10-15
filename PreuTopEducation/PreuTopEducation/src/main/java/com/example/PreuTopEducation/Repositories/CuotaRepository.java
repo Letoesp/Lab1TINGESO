@@ -12,4 +12,5 @@ public interface CuotaRepository extends JpaRepository<Cuota,Long> {
     List<Cuota> findByEstudiante_Rut(Long estudianteId);
 
 
+    List<Cuota> findByEstudiante_RutAndEstado(Long estudianteId, String pendiente);
 }

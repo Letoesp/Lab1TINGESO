@@ -50,6 +50,12 @@ public class CuotaController {
         return "redirect:/ver_cuotas/" + estudianteId;
     }
 
+    @PostMapping("/cuotas/aplicar_descuento")
+    public String aplicarDescuentoATodos() {
+        cuotaService.aplicarDescuentoPorPromedioExamenParaTodos();
+        return "redirect:/cuotas"; // Redirige de vuelta a la página de cuotas
+    }
+
 
 
 

@@ -95,10 +95,58 @@ public class CuotaService {
     }
 
     public Cuota actualizarCuota(Cuota cuota) {
+
         return cuotaRepository.save(cuota);
     }
 
+    public void aplicarDescuentoPorPromedioExamenParaTodos() {
+        List<Estudiante> estudiantes = estudianteService.getEstudiantes();
+        for (Estudiante estudiante : estudiantes) {
+            double descuentoPorcentaje = 0.0;
+
+            if (estudiante.getPromedio_examen() >= 950) {
+                descuentoPorcentaje = 0.10; // 10% de descuento
+            } else if (estudiante.getPromedio_examen() >= 900) {
+                descuentoPorcentaje = 0.05; // 5% de descuento
+            } else if (estudiante.getPromedio_examen() >= 850) {
+                descuentoPorcentaje = 0.02; // 2% de descuento
+            }
+
+            // Obtener las cuotas pendientes del estudiante
+            List<Cuota> cuotas = cuotaRepository.findByEstudiante_RutAndEstado(estudiante.getRut(), "Pendiente");
+
+            // Aplicar descuento a las cuotas y actualizar en la base de datos
+            for (Cuota cuota : cuotas) {
+                int descuentoActual = cuota.getDescuento(); // Obtener el descuento acumulado
+                int montoOriginal = cuota.getMonto();
+                double nuevoDescuento = montoOriginal * descuentoPorcentaje; // Calcular nuevo descuento
+
+                // Sumar el nuevo descuento al descuento acumulado
+                descuentoActual += nuevoDescuento;
+
+                // Aplicar el descuento acumulado al monto de la cuota
+                int montoConDescuento = (int) Math.ceil(montoOriginal - descuentoActual);
+
+                // Actualizar el atributo descuento de la cuota
+                cuota.setDescuento(descuentoActual);
+
+                // Actualizar el monto de la cuota con el descuento acumulado
+                cuota.setMonto(montoConDescuento);
+
+                // Guardar la cuota actualizada en la base de datos
+                cuotaRepository.save(cuota);
+            }
+        }
+    }
+
+
+
+
+
+
 }
+
+
 
 
 
