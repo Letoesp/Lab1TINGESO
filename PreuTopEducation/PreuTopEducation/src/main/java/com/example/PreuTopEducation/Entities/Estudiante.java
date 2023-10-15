@@ -26,6 +26,16 @@ public class Estudiante {
     private int arancel_a_pagar;
     private int cantidad_cuotas;
     private int promedio_examen;
+    private int cantidad_examenes;
+    private int monto_pagado;
+    private int saldo_por_pagar;
+    private int cuotas_retraso;
+    private LocalDate ultimo_pago;
+    private int numero_cuotas_pagadas;
+
+    // Constructor, getters y setters para otros atributos
+
+
 
 
 

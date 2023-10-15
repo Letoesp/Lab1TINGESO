@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Subir Notas</title>
+    <title>Registro Estudiantes TopEducation</title>
 </head>
+
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <a class="navbar-brand" th:href="@{/inicio}">Preuniversitario TopEducation</a>
@@ -19,15 +20,29 @@
         </ul>
     </div>
 </nav>
-<div class="container mt-5">
-    <form action="/subir_notas" method="POST" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="archivo" class="form-label">Selecciona el archivo CSV:</label>
-            <input type="file" class="form-control" id="archivo" name="archivo" accept=".csv" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Subir Notas</button>
-    </form>
-
-</div>
+<h1>Lista de Estudiantes</h1>
+<table class="table table-striped table-bordered">
+    <thead class="table-light">
+    <tr>
+        <th>RUT</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Itera sobre la lista de estudiantes y muestra sus atributos -->
+    <th:block th:each="estudiante : ${estudiantes}">
+        <tr>
+            <td th:text="${estudiante.rut}"></td>
+            <td th:text="${estudiante.nombres}"></td>
+            <td th:text="${estudiante.apellidos}"></td>
+            <!-- Enlaza el botón "Ver Reporte" al controlador correspondiente -->
+            <td><a th:href="@{/ver_reporte/{rutEstudiante}(rutEstudiante=${estudiante.rut})}" class="btn btn-info">Ver Reporte</a></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
 </body>
+
 </html>

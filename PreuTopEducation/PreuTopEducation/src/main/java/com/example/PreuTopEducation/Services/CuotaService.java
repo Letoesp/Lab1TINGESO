@@ -32,25 +32,29 @@ public class CuotaService {
     public void generarCuotasporId(Long id) {
         // Obtener el estudiante por su ID utilizando el servicio de Estudiante
         Estudiante estudiante = obtenerEstudiantePorId(id);
-
         double arancelTotal = 1500000.0; // Utilizar arancel fijo de 1.500.000
 
-        // Aplicar descuento según tipo de colegio de procedencia
+        // Calcular descuento según tipo de colegio de procedencia
+        double descuentoTipo = 0;
         if ("Municipal".equals(estudiante.getTipo_colegio_proc())) {
-            arancelTotal *= 0.8; // 20% de descuento
+            descuentoTipo = 0.2 * arancelTotal; // 20% de descuento
         } else if ("Subvencionado".equals(estudiante.getTipo_colegio_proc())) {
-            arancelTotal *= 0.9; // 10% de descuento
+            descuentoTipo = 0.1 * arancelTotal; // 10% de descuento
         }
 
         // Calcular descuento según años desde que egresó del colegio
         int añosDesdeEgreso = Year.now().getValue() - estudiante.getEgreso();
+        double descuentoAnios = 0;
         if (añosDesdeEgreso < 1) {
-            arancelTotal *= 0.85; // 15% de descuento
+            descuentoAnios = 0.15 * arancelTotal; // 15% de descuento
         } else if (añosDesdeEgreso >= 1 && añosDesdeEgreso <= 2) {
-            arancelTotal *= 0.92; // 8% de descuento
+            descuentoAnios = 0.08 * arancelTotal; // 8% de descuento
         } else if (añosDesdeEgreso >= 3 && añosDesdeEgreso <= 4) {
-            arancelTotal *= 0.96; // 4% de descuento
+            descuentoAnios = 0.04 * arancelTotal; // 4% de descuento
         }
+
+        // Aplicar descuentos al arancel total
+        arancelTotal -= (descuentoTipo + descuentoAnios);
 
         // Calcular el número de cuotas que debe pagar el estudiante
         int cantidadCuotas = estudiante.getCantidad_cuotas();
@@ -83,6 +87,7 @@ public class CuotaService {
             yearMonth = yearMonth.plusMonths(1);
         }
     }
+
 
 
 
@@ -140,10 +145,13 @@ public class CuotaService {
     }
 
 
+    public List<Cuota> obtenerCuotasPagadasPorEstudianteId(Long rutEstudiante) {
+        return cuotaRepository.findByEstudiante_RutAndEstado(rutEstudiante, "Pagado");
+    }
 
-
-
-
+    public List<Cuota> obtenerCuotasPendientesPorEstudianteId(Long rutEstudiante) {
+        return cuotaRepository.findByEstudiante_RutAndEstado(rutEstudiante,"Pendiente");
+    }
 }
 
 
