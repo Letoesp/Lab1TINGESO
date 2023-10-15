@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,8 @@ public class CuotaController {
     public String registrarCuota(@PathVariable Long id, @RequestParam("estado") String estado) {
         Cuota cuota = cuotaService.obtenerCuotaPorId(id);
         cuota.setEstado(estado);
+        LocalDate fechaPago = LocalDate.now();
+        cuota.setFecha_pago(fechaPago);
         cuotaService.actualizarCuota(cuota);
 
         // Obtén el ID del estudiante desde la cuota
