@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ExamenService {
@@ -48,6 +49,24 @@ public class ExamenService {
                 examen.setPuntaje(puntaje);
                 examenRepository.save(examen);
             }
+        }
+    }
+
+
+
+    public List<Examen> obtenerExamenesPorEstudiante(Long rutEstudiante) {
+        return examenRepository.findExamenByEstudiante_Rut(rutEstudiante);
+    }
+
+    public void calcularYActualizarPromedioParaTodosLosEstudiantes() {
+        List<Estudiante> estudiantes = estudianteService.getEstudiantes();
+        for (Estudiante estudiante : estudiantes) {
+            List<Examen> examenes = obtenerExamenesPorEstudiante(estudiante.getRut());
+            int sumPuntajes = examenes.stream().mapToInt(Examen::getPuntaje).sum();
+            int totalExamenes = examenes.size();
+            int promedio = (totalExamenes == 0) ? 0 : sumPuntajes / totalExamenes;
+            estudiante.setPromedio_examen(promedio);
+            estudianteService.actualizarEstudiante(estudiante); // Guarda el promedio en la base de datos
         }
     }
 

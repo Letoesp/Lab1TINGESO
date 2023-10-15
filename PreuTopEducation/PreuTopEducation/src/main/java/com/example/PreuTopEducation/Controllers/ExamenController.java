@@ -38,8 +38,14 @@ public class ExamenController {
             e.printStackTrace();
             model.addAttribute("mensaje", "Error al subir las notas. Por favor, revisa el archivo e inténtalo nuevamente.");
         }
+        examenService.calcularYActualizarPromedioParaTodosLosEstudiantes();
         return "redirect:/subir_notas";
     }
+
+
+
+
+
 
 
 
