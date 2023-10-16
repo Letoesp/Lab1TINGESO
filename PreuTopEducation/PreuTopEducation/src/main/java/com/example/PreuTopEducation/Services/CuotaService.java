@@ -3,16 +3,13 @@ package com.example.PreuTopEducation.Services;
 import com.example.PreuTopEducation.Entities.Cuota;
 import com.example.PreuTopEducation.Entities.Estudiante;
 import com.example.PreuTopEducation.Repositories.CuotaRepository;
-import com.example.PreuTopEducation.Repositories.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.YearMonth;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CuotaService {
@@ -24,17 +21,17 @@ public class CuotaService {
         this.cuotaRepository = cuotaRepository;
         this.estudianteService = estudianteService;
     }
-
+//metodo que se comunica con el servicio estudiante para obtener un estudiante por su rut
     public Estudiante obtenerEstudiantePorId(Long estudianteId) {
         return estudianteService.obtenerEstudianteporRut(estudianteId);
     }
 
     public void generarCuotasporId(Long id) {
-        // Obtener el estudiante por su ID utilizando el servicio de Estudiante
+        // Seobtiene el estudiante por su ID(rut) utilizando el servicio de Estudiante
         Estudiante estudiante = obtenerEstudiantePorId(id);
-        double arancelTotal = 1500000.0; // Utilizar arancel fijo de 1.500.000
+        double arancelTotal = 1500000.0; // Se utiliza arancel fijo de 1.500.000
 
-        // Calcular descuento según tipo de colegio de procedencia
+        // Calculo descuento según tipo de colegio de procedencia
         double descuentoTipo = 0;
         if ("Municipal".equals(estudiante.getTipo_colegio_proc())) {
             descuentoTipo = 0.2 * arancelTotal; // 20% de descuento
@@ -42,36 +39,39 @@ public class CuotaService {
             descuentoTipo = 0.1 * arancelTotal; // 10% de descuento
         }
 
-        // Calcular descuento según años desde que egresó del colegio
-        int añosDesdeEgreso = Year.now().getValue() - estudiante.getEgreso();
+        // Calculo descuento según años desde que egresó del colegio
+        int anosDesdeEgreso = Year.now().getValue() - estudiante.getEgreso();
         double descuentoAnios = 0;
-        if (añosDesdeEgreso < 1) {
+        if (anosDesdeEgreso < 1) {
             descuentoAnios = 0.15 * arancelTotal; // 15% de descuento
-        } else if (añosDesdeEgreso >= 1 && añosDesdeEgreso <= 2) {
+        } else if (anosDesdeEgreso >= 1 && anosDesdeEgreso <= 2) {
             descuentoAnios = 0.08 * arancelTotal; // 8% de descuento
-        } else if (añosDesdeEgreso >= 3 && añosDesdeEgreso <= 4) {
+        } else if (anosDesdeEgreso >= 3 && anosDesdeEgreso <= 4) {
             descuentoAnios = 0.04 * arancelTotal; // 4% de descuento
         }
 
-        // Aplicar descuentos al arancel total
+        // Se aplica ambos descuentos al arancel total
         arancelTotal -= (descuentoTipo + descuentoAnios);
 
-        // Calcular el número de cuotas que debe pagar el estudiante
+        // Calculo número de cuotas que debe pagar el estudiante
         int cantidadCuotas = estudiante.getCantidad_cuotas();
-        int montoCuota = (int) Math.ceil(arancelTotal / cantidadCuotas); // Redondear hacia arriba
+        int montoCuota = (int) Math.ceil(arancelTotal / cantidadCuotas); // Redondeo hacia arriba
 
         // Obtener el mes y año actual
         YearMonth yearMonth = YearMonth.now();
+        LocalDate fechaActual = LocalDate.now();
+
+        // Verificación si la fecha actual es después del plazo de pago del mes actual
+        if (fechaActual.getDayOfMonth() > 10) {
+            // Avanza al siguiente mes si la fecha actual es después del plazo de pago
+            yearMonth = yearMonth.plusMonths(1);
+        }
 
         // Generar cuotas y guardar en la base de datos
         for (int i = 0; i < cantidadCuotas; i++) {
             LocalDate plazoInicio = yearMonth.atDay(5);
             LocalDate plazoFinal = yearMonth.atDay(10);
 
-            // Si el plazo final es mayor que el último día del mes, ajustarlo
-            if (plazoFinal.isAfter(yearMonth.atEndOfMonth())) {
-                plazoFinal = yearMonth.atEndOfMonth();
-            }
 
             Cuota cuota = new Cuota();
             cuota.setEstudiante(estudiante);
@@ -91,8 +91,9 @@ public class CuotaService {
 
 
 
-    public Cuota obtenerCuotaPorId(Long cuotaId){
+    public Cuota obtenerCuotaPorId(Long cuotaId) {
         return cuotaRepository.findCuotaByIdcuota(cuotaId);
+
     }
 
     public List<Cuota> obtenerCuotasPorEstudianteId(Long estudianteId) {

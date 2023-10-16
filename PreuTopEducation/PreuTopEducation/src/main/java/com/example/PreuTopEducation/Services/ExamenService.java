@@ -42,7 +42,7 @@ public class ExamenService {
                 // Buscar estudiante por rut
                 Estudiante estudiante = estudianteService.obtenerEstudianteporRut(rutEstudiante);
 
-                // Crea un objeto Examen y guárdalo en la base de datos
+                // Crea un objeto Examen y se guarda en la base de datos
                 Examen examen = new Examen();
                 examen.setEstudiante(estudiante);
                 examen.setFecha(fecha);

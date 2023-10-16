@@ -26,34 +26,34 @@ public class ReporteService {
     public Estudiante generarReporteEstudiante(Long rutEstudiante) {
         Estudiante estudiante = estudianteService.obtenerEstudianteporRut(rutEstudiante);
 
-        // Calcular cantidad de exámenes rendidos
+        // Calcula cantidad de exámenes rendidos
         List<Examen> examenes = examenService.obtenerExamenesPorEstudiante(rutEstudiante);
         int cantidadExamenesRendidos = examenes.size();
         estudiante.setCantidad_examenes(cantidadExamenesRendidos);
 
-        // Calcular monto total del arancel a pagar
+        // Calcula monto total del arancel a pagar
         List<Cuota> cuotasPagadas = cuotaService.obtenerCuotasPagadasPorEstudianteId(rutEstudiante);
         int montoTotalPagado = cuotasPagadas.stream().mapToInt(Cuota::getMonto).sum();
         estudiante.setMonto_pagado(montoTotalPagado);
 
-        // Calcular saldo por pagar
+        // Calcula saldo por pagar
         List<Cuota> cuotasPendientes = cuotaService.obtenerCuotasPendientesPorEstudianteId(rutEstudiante);
         int saldoPorPagar = cuotasPendientes.stream().mapToInt(Cuota::getMonto).sum();
         estudiante.setSaldo_por_pagar(saldoPorPagar);
 
-        // Calcular número de cuotas con retraso
+        // Calcula número de cuotas con retraso
         long numeroCuotasRetraso = cuotasPendientes.stream().filter(cuota -> cuota.getEstado().equals("Retraso")).count();
         estudiante.setCuotas_retraso((int) numeroCuotasRetraso);
 
-        // Calcular fecha del último pago
+        // Calcula fecha del último pago
         LocalDate fechaUltimoPago = cuotasPagadas.stream().map(Cuota::getFecha_pago).max(LocalDate::compareTo).orElse(null);
         estudiante.setUltimo_pago(fechaUltimoPago);
 
-        // Asignar otros datos calculados al estudiante si es necesario
-        // Calcular número de cuotas pagadas
+        // Calcula número de cuotas pagadas
         int numeroCuotasPagadas = cuotasPagadas.size();
         estudiante.setNumero_cuotas_pagadas(numeroCuotasPagadas);
-        // Calcular monto total del arancel a pagar (saldo por pagar + monto pagado)
+
+        // Calcula monto total del arancel a pagar (saldo por pagar + monto pagado)
         int arancelAPagar = estudiante.getSaldo_por_pagar() + estudiante.getMonto_pagado();
         estudiante.setArancel_a_pagar(arancelAPagar);
 

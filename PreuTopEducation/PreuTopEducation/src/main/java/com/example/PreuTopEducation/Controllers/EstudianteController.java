@@ -1,6 +1,5 @@
 package com.example.PreuTopEducation.Controllers;
 
-import com.example.PreuTopEducation.Repositories.EstudianteRepository;
 import org.springframework.ui.Model;
 import com.example.PreuTopEducation.Entities.Estudiante;
 import com.example.PreuTopEducation.Services.EstudianteService;
@@ -16,6 +15,7 @@ public class EstudianteController {
     private final EstudianteService estudianteService;
     @Autowired //inyectar clase en constructor
     public EstudianteController(EstudianteService estudianteService) {
+
         this.estudianteService = estudianteService;
     }
 
@@ -106,7 +106,7 @@ public class EstudianteController {
         List<Estudiante> estudiantes = estudianteService.getEstudianteporTipopago("Cuotas");
         System.out.println("Número de estudiantes con tipo de pago Cuota: " + estudiantes.size());
         model.addAttribute("estudiantes", estudiantes);
-        return "/cuotas"; // Retorna a la vista HTML estudiantes
+        return "/cuotas"; // Retorna a la vista HTML cuotas
     }
 
 

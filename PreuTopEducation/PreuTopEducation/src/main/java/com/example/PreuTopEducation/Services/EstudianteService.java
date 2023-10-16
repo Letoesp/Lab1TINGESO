@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EstudianteService {
@@ -20,10 +19,12 @@ public class EstudianteService {
     }
 
     public Estudiante registrarEstudiante(Estudiante estudiante){
+
         return estudianteRepository.save(estudiante);
     }
 
     public Estudiante actualizarEstudiante(Estudiante estudiante){
+
         return estudianteRepository.save(estudiante);
     }
     public Estudiante obtenerEstudianteporRut(Long rut){
@@ -32,6 +33,7 @@ public class EstudianteService {
     }
 
     public void eliminarEstudiante(Long rut){
+
         estudianteRepository.deleteById(rut);
     }
     public List<Estudiante> getEstudianteporTipopago(String tipopago) {
