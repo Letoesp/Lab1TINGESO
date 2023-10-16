@@ -33,7 +33,9 @@ public class Estudiante {
     private LocalDate ultimo_pago;
     private int numero_cuotas_pagadas;
 
-    // Constructor, getters y setters para otros atributos
+
+
+
 
 
 

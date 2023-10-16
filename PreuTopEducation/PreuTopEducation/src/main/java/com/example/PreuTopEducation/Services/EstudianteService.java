@@ -15,16 +15,16 @@ public class EstudianteService {
     public EstudianteService(EstudianteRepository estudianteRepository){
         this.estudianteRepository = estudianteRepository;
     }
-    public List<Estudiante> getEstudiantes(){
+    public List<Estudiante> getEstudiantes() {
         return this.estudianteRepository.findAll();
     }
+
     public Estudiante registrarEstudiante(Estudiante estudiante){
         return estudianteRepository.save(estudiante);
     }
 
     public Estudiante actualizarEstudiante(Estudiante estudiante){
         return estudianteRepository.save(estudiante);
-
     }
     public Estudiante obtenerEstudianteporRut(Long rut){
         return estudianteRepository.findById(rut).get();

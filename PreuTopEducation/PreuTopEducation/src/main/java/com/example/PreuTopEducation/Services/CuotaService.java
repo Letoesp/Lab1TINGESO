@@ -91,7 +91,7 @@ public class CuotaService {
 
 
 
-    public Cuota obtenerCuotaPorId(Long cuotaId) {
+    public Cuota obtenerCuotaPorId(Long cuotaId){
         return cuotaRepository.findCuotaByIdcuota(cuotaId);
     }
 
