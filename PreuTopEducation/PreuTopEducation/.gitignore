@@ -34,3 +34,4 @@ build/
 
 ### Ignorar la carpeta data ###
 /data/
+jenkins.war
