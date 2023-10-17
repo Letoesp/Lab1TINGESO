@@ -1,7 +1,7 @@
 version: "3.8"
 services:
-  ngnix:
-    image: ngnix:latest
+  nginx:
+    image: nginx:latest
     container_name: nginx-proxy
     restart: always
     ports:
