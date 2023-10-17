@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class InicioController {
 
-    @GetMapping("/inicio")
+    @GetMapping("/")
     public String mostrarPaginaInicio() {
         return "inicio"; //archivo HTML (inicio.html)
     }
