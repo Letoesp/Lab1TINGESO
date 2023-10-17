@@ -1,6 +1,8 @@
 package com.example.PreuTopEducation.Controllers;
 
 import com.example.PreuTopEducation.Entities.Cuota;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import com.example.PreuTopEducation.Services.CuotaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +52,18 @@ public class CuotaController {
         return "redirect:/ver_cuotas/" + estudianteId;
     }
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CuotaController.class);
+
     @PostMapping("/cuotas/aplicar_descuento")
     public String aplicarDescuentoATodos() {
-        cuotaService.aplicarDescuentoPorPromedioExamenParaTodos();
+        try {
+            LOGGER.info("Iniciando aplicarDescuentoATodos()");
+            cuotaService.aplicarDescuentoPorPromedioExamenParaTodos();
+            LOGGER.info("Descuento aplicado correctamente a todos los estudiantes.");
+        } catch (Exception e) {
+            LOGGER.error("Error al aplicar descuento a todos los estudiantes: {}", e.getMessage());
+            // Manejo de la excepción aquí
+        }
         return "redirect:/cuotas"; // Redirige de vuelta a la página de cuotas
     }
 
