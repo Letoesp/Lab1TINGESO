@@ -27,7 +27,7 @@ services:
     container_name: preutopeducation1
     image: letoesp/preutopeducation
     ports:
-      - "8092:8091"
+      - "8091:8090"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/TopEducation?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
       - SPRING_DATASOURCE_USERNAME=root
@@ -42,7 +42,7 @@ services:
     container_name: preutopeducation2
     image: letoesp/preutopeducation
     ports:
-      - "8093:8091"
+      - "8092:8090"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/TopEducation?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
       - SPRING_DATASOURCE_USERNAME=root
@@ -57,7 +57,7 @@ services:
     container_name: preutopeducation3
     image: letoesp/preutopeducation
     ports:
-      - "8094:8091"
+      - "8093:8090"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/TopEducation?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
       - SPRING_DATASOURCE_USERNAME=root
