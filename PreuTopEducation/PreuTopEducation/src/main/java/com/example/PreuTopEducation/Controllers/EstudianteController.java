@@ -106,7 +106,7 @@ public class EstudianteController {
         List<Estudiante> estudiantes = estudianteService.getEstudianteporTipopago("Cuotas");
         System.out.println("Número de estudiantes con tipo de pago Cuota: " + estudiantes.size());
         model.addAttribute("estudiantes", estudiantes);
-        return "/cuotas"; // Retorna a la vista HTML cuotas
+        return "cuotas"; // Retorna a la vista HTML cuotas
     }
 
 
