@@ -8,6 +8,6 @@ public class InicioController {
 
     @GetMapping("/")
     public String mostrarPaginaInicio() {
-        return "inicio"; //archivo HTML (inicio.html)
+        return "inicio";
     }
 }

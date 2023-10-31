@@ -36,7 +36,7 @@ public class ExamenService {
             for (CSVRecord csvRecord : csvParser) {
                 Long rutEstudiante = Long.parseLong(csvRecord.get("rutEstudiante"));
                 String fechaExamen = csvRecord.get("fechaExamen");
-                LocalDate fecha = LocalDate.parse(fechaExamen); // Asegúrate de que el formato de fecha en el CSV sea correcto
+                LocalDate fecha = LocalDate.parse(fechaExamen);
                 int puntaje = Integer.parseInt(csvRecord.get("puntajeObtenido"));
 
                 // Buscar estudiante por rut

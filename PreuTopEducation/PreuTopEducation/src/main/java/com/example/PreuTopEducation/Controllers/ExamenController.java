@@ -31,10 +31,9 @@ public class ExamenController {
     public String subirNotas(@RequestParam("archivo") MultipartFile archivo, Model model) {
         try {
             examenService.cargarNotasDesdeCSV(archivo);
-            // Redirige a alguna página de confirmación
             model.addAttribute("mensaje", "Notas subidas exitosamente.");
         } catch (IOException e) {
-            // Maneja las excepciones según tus necesidades
+            // Manejo de excepciones
             e.printStackTrace();
             model.addAttribute("mensaje", "Error al subir las notas. Por favor, revisa el archivo e inténtalo nuevamente.");
         }
